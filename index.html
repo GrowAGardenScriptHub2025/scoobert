@@ -27,6 +27,7 @@
             border-radius: 10px;
             animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
             transition: transform 0.3s ease;
+            position: relative;
         }
         .nft-image:hover {
             transform: scale(1.05);
@@ -85,6 +86,8 @@
         .volume-button {
             font-size: 1.5em;
             padding: 10px 15px;
+            background-color: #1db954;
+            position: relative;
         }
         .volume-dropdown {
             display: none;
@@ -96,7 +99,7 @@
             width: 200px;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -150%);
+            transform: translate(-50%, -50%);
             z-index: 1;
             animation: popUp 0.3s ease-out;
         }
@@ -104,8 +107,8 @@
             display: block;
         }
         @keyframes popUp {
-            0% { transform: translate(-50%, -160%) scale(0.8); opacity: 0; }
-            100% { transform: translate(-50%, -150%) scale(1); opacity: 1; }
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
         .volume-slider {
             width: 100%;
@@ -194,10 +197,10 @@
     <div class="nft-container">
         <h1>Scoobert</h1>
         <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="nft-image">
+        <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
         <br>
         <button class="play-button" onclick="toggleMusic()">Play Music</button>
         <button class="volume-button" onclick="toggleVolumeDropdown()">📢</button>
-        <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
         <div class="volume-dropdown" id="volumeDropdown">
             <input type="range" min="0" max="1" step="0.1" value="1" class="volume-slider" id="volumeSlider" oninput="setVolume()">
         </div>
