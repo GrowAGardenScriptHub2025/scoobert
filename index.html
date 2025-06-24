@@ -244,16 +244,9 @@
     </div>
 
     <div class="carousel">
-      <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" onclick="showDetails(1)" class="nft-image" />
-      <img src="https://i.imgur.com/edited1.jpeg" alt="Scoobert 2" onclick="showDetails(2)" class="nft-image" />
-      <img src="https://i.imgur.com/edited2.jpeg" alt="Scoobert 3" onclick="showDetails(3)" class="nft-image" />
-      <img src="https://i.imgur.com/edited3.jpeg" alt="Scoobert 4" onclick="showDetails(4)" class="nft-image" />
-      <img src="https://i.imgur.com/edited4.jpeg" alt="Scoobert 5" onclick="showDetails(5)" class="nft-image" />
-      <img src="https://i.imgur.com/edited5.jpeg" alt="Scoobert 6" onclick="showDetails(6)" class="nft-image" />
-      <img src="https://i.imgur.com/edited6.jpeg" alt="Scoobert 7" onclick="showDetails(7)" class="nft-image" />
-      <img src="https://i.imgur.com/edited7.jpeg" alt="Scoobert 8" onclick="showDetails(8)" class="nft-image" />
-      <img src="https://i.imgur.com/edited8.jpeg" alt="Scoobert 9" onclick="showDetails(9)" class="nft-image" />
-      <img src="https://i.imgur.com/edited9.jpeg" alt="Scoobert 10" onclick="showDetails(10)" class="nft-image" />
+      <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
+      <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" />
+      <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
     </div>
 
     <div>
@@ -335,10 +328,6 @@
       const mins = Math.floor(seconds / 60);
       const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
       return `${mins}:${secs}`;
-    }
-
-    function showDetails(id) {
-      alert(`Scoobert ${id}\nMinted: 2024\nArtist: Shaggy.eth\nStatus: Not for sale`);
     }
 
     audio.addEventListener('loadedmetadata', () => {
