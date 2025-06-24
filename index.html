@@ -56,9 +56,11 @@
     }
 
     #date-time {
-      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.3rem;
       color: #555;
       user-select: none;
+      letter-spacing: 2px;
     }
 
     .hit-button {
@@ -126,20 +128,25 @@
     /* Controls section */
     .controls-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       background: white;
       border-radius: 12px;
-      padding: 20px 25px;
+      padding: 25px 30px;
       box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
       text-align: center;
       user-select: none;
+      margin-bottom: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
     }
 
     .buttons-row {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 20px;
+      width: 100%;
     }
 
     button.play-button,
@@ -221,7 +228,9 @@
       margin-top: 12px;
       font-weight: 600;
       color: #555;
-      font-size: 0.9rem;
+      font-size: 1rem;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 1.5px;
     }
 
     /* Volume dropdown */
@@ -233,6 +242,8 @@
       display: none;
       box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
       user-select: none;
+      width: 100%;
+      max-width: 350px;
     }
 
     .volume-dropdown.active {
@@ -373,56 +384,56 @@
   </style>
 </head>
 <body>
+  <div class="top-bar" id="page-content">
+    <div id="date-time" aria-live="polite" aria-atomic="true" role="region">Loading time...</div>
+    <button class="hit-button" onclick="window.location.href='smoke.html'" aria-label="Take A Hit">Take A Hit</button>
+  </div>
 
-  <div id="page-content">
-    <div class="top-bar">
-      <div id="date-time"></div>
-      <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
-    </div>
+  <header>Scoobert Collection</header>
 
-    <header>Scoobert Collection</header>
-
-    <main class="nft-grid" aria-label="Scoobert NFTs">
+  <main id="page-content" aria-label="Scoobert NFTs gallery" tabindex="0">
+    <div class="nft-grid">
       <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/IL5RtOF.jpeg" data-name="Scoobert 1">
-        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" loading="lazy" />
+        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
         <div class="nft-label">Scoobert 1</div>
       </div>
       <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/E457iTG.png" data-name="Scoobert 2">
-        <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" loading="lazy" />
+        <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" />
         <div class="nft-label">Scoobert 2</div>
       </div>
       <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/3vtBSYw.jpeg" data-name="Scoobert 3">
-        <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" loading="lazy" />
+        <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
         <div class="nft-label">Scoobert 3</div>
       </div>
-    </main>
+    </div>
 
-    <section class="controls-container" aria-label="Music Controls">
+    <section class="controls-container" aria-label="Music player controls">
       <div class="buttons-row">
-        <button class="play-button" onclick="toggleMusic()" aria-pressed="false" id="playBtn">Play Music</button>
-        <button class="loop-button" onclick="toggleLoop()" aria-pressed="false" id="loopBtn" title="Toggle Loop">🔁</button>
-        <button class="volume-button" onclick="toggleVolumeDropdown()" aria-expanded="false" aria-controls="volumeDropdown" id="volBtn">🔊</button>
+        <button id="playBtn" class="play-button" aria-pressed="false" onclick="toggleMusic()">Play Music</button>
+        <button id="loopBtn" class="loop-button" aria-pressed="false" onclick="toggleLoop()" title="Toggle loop">🔁 Loop</button>
+        <button id="volBtn" class="volume-button" aria-expanded="false" aria-controls="volumeDropdown" aria-haspopup="true" onclick="toggleVolumeDropdown()" title="Volume control">🔊</button>
       </div>
-      <input type="range" min="0" max="100" value="0" class="slider" id="seekBar" oninput="setSeek()" aria-label="Seek audio" />
-      <div id="timestamp" aria-live="polite">0:00 / 0:00</div>
-      <div class="volume-dropdown" id="volumeDropdown">
-        <input type="range" min="0" max="1" step="0.1" value="1" class="volume-slider" id="volumeSlider" oninput="setVolume()" aria-label="Adjust volume" />
+      <input type="range" id="seekBar" class="slider" min="0" max="100" value="0" oninput="setSeek()" aria-label="Seek bar" />
+      <div id="timestamp" aria-live="polite" aria-atomic="true">0:00 / 0:00</div>
+      <div id="volumeDropdown" class="volume-dropdown" role="region" aria-label="Volume control slider">
+        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="1" oninput="setVolume()" aria-label="Volume slider" />
       </div>
     </section>
-  </div>
+  </main>
 
-  <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH" preload="metadata"></audio>
+  <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
 
   <!-- Modal -->
-  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
     <div class="modal-content">
       <button class="modal-close" aria-label="Close modal">&times;</button>
-      <img src="" alt="" class="modal-image" id="modalImage" />
-      <a href="#" download class="download-button" id="downloadBtn">Download</a>
+      <img id="modalImage" src="" alt="Scoobert NFT" class="modal-image" />
+      <a id="downloadBtn" href="#" class="download-button" download>Download</a>
     </div>
   </div>
 
   <script>
+    // Elements
     const audio = document.getElementById('nft-audio');
     const volumeSlider = document.getElementById('volumeSlider');
     const seekBar = document.getElementById('seekBar');
@@ -513,13 +524,33 @@
       }
     });
 
-    // Date & Time update
+    // Live time & timezone & country
     function updateDateTime() {
       const now = new Date();
-      const options = { hour: '2-digit', minute: '2-digit', hour12: true, timeZoneName: 'short' };
-      const timeString = now.toLocaleTimeString('en-US', options).replace('GMT', '+06');
-      const dateString = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-      document.getElementById('date-time').textContent = `${dateString} ${timeString}`;
+
+      // Format time with seconds: HH:MM:SS AM/PM
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      const timeString = now.toLocaleTimeString('en-US', timeOptions);
+
+      // Timezone abbreviation (like GMT+6, or local)
+      // Using Intl API for timeZoneName short form
+      const tzOptions = { timeZoneName: 'short' };
+      const tzString = now.toLocaleTimeString('en-US', tzOptions).split(' ')[2] || '';
+
+      // Country using Intl API locale info is tricky, fallback to fixed
+      // Or use Intl.DisplayNames if supported
+      let country = 'Bangladesh'; // fallback default
+      if (typeof Intl.DisplayNames === 'function') {
+        try {
+          const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+          // Get country from user's locale - this is not always accurate but okay for demo
+          country = regionNames.of(navigator.language.split('-')[1]) || country;
+        } catch(e) {
+          // fallback to Bangladesh
+        }
+      }
+
+      document.getElementById('date-time').textContent = `${timeString} ${tzString} — ${country}`;
     }
 
     setInterval(updateDateTime, 1000);
