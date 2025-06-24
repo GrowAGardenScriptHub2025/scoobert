@@ -13,13 +13,19 @@
             align-items: center;
             background: linear-gradient(135deg, #ffe0f0, #ffccd5);
             font-family: Arial, sans-serif;
-            position: relative;
             overflow: hidden;
         }
         .nft-container {
             text-align: center;
             color: #333;
-            position: relative;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
         }
         .nft-image {
             width: 300px;
@@ -42,49 +48,81 @@
         }
         h1 {
             font-size: 2.5em;
-            margin: 20px 0;
+            margin: 0;
             animation: fadeIn 2s ease-in-out infinite;
         }
         @keyframes fadeIn {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
-        .play-button, .volume-button {
+        .play-button, .volume-button, .hit-button {
             background-color: #1db954;
             color: white;
             border: none;
             padding: 10px 20px;
-            font-size: 1.2em;
+            font-size: 1em;
             border-radius: 50px;
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 10px;
-            display: inline-block;
+            margin: 10px 5px;
         }
-        .play-button:hover, .volume-button:hover {
-            transform: scale(1.1);
-            background-color: #17a34a;
-        }
-        .hit-button {
-            background-color: #1db954;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-        .hit-button:hover {
+        .play-button:hover, .volume-button:hover, .hit-button:hover {
             transform: scale(1.1);
             background-color: #17a34a;
         }
         .volume-button {
             font-size: 1.5em;
             padding: 10px 15px;
+        }
+        .controls {
+            margin-top: 20px;
+            position: relative;
+        }
+        .slider {
+            width: 200px;
+            margin: 10px auto;
+            appearance: none;
+            height: 5px;
+            background: #1db954;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.3s ease;
+            animation: slideIn 1s ease-out;
+        }
+        .slider:hover {
+            opacity: 1;
+            transform: scaleX(1.05);
+        }
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+        .slider::-webkit-slider-thumb,
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #1db954;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .slider::-webkit-slider-thumb:hover,
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        .slider::-moz-range-thumb,
+        .volume-slider::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            background: #1db954;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .slider::-moz-range-thumb:hover,
+        .volume-slider::-moz-range-thumb:hover {
+            transform: scale(1.2);
         }
         .volume-dropdown {
             display: none;
@@ -94,7 +132,7 @@
             border-radius: 10px;
             padding: 15px;
             width: 200px;
-            bottom: 0;
+            bottom: 60px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
@@ -120,85 +158,19 @@
             opacity: 1;
             transform: scaleX(1.05);
         }
-        .volume-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        .volume-slider::-moz-range-thumb {
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .volume-slider::-moz-range-thumb:hover {
-            transform: scale(1.2);
-        }
-        .controls {
-            margin-top: 20px;
-            position: relative;
-        }
-        .slider {
-            width: 200px;
-            margin: 10px auto;
-            appearance: none;
-            height: 5px;
-            background: #1db954;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.2s, transform 0.3s ease;
-            animation: slideIn 1s ease-out;
-        }
-        .slider:hover {
-            opacity: 1;
-            transform: scaleX(1.05);
-        }
-        @keyframes slideIn {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(0); }
-        }
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        .slider::-moz-range-thumb {
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .slider::-moz-range-thumb:hover {
-            transform: scale(1.2);
-        }
     </style>
 </head>
 <body>
     <div class="nft-container">
-        <h1>Scoobert</h1>
+        <div class="header">
+            <h1>Scoobert</h1>
+            <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
+        </div>
         <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="nft-image">
-        <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
-        <br>
-        <button class="play-button" onclick="toggleMusic()">Play Music</button>
-        <button class="volume-button" onclick="toggleVolumeDropdown()">📢</button>
+        <div>
+            <button class="play-button" onclick="toggleMusic()">Play Music</button>
+            <button class="volume-button" onclick="toggleVolumeDropdown()">📢</button>
+        </div>
         <div class="controls">
             <input type="range" min="0" max="100" value="0" class="slider" id="seekBar" oninput="setSeek()">
             <div class="volume-dropdown" id="volumeDropdown">
@@ -207,6 +179,7 @@
         </div>
         <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
     </div>
+
     <script>
         const audio = document.getElementById('nft-audio');
         const volumeSlider = document.getElementById('volumeSlider');
