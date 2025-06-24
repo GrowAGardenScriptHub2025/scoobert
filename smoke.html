@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoobert Smoke</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffe0f0, #ffccd5);
+            font-family: Arial, sans-serif;
+        }
+        .smoke-container {
+            text-align: center;
+            position: relative;
+        }
+        .smoke-image {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .smoke {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            font-size: 50px;
+            color: #fff;
+            animation: smokeEffect 2s ease-out;
+        }
+        @keyframes smokeEffect {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+            50% { opacity: 1; transform: translate(-50%, -60%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -80%) scale(1.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="smoke-container">
+        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="smoke-image" onclick="showSmoke()">
+        <div class="smoke" id="smoke">💨</div>
+    </div>
+    <script>
+        const smoke = document.getElementById('smoke');
+        let canSmoke = true;
+        function showSmoke() {
+            if (canSmoke) {
+                smoke.style.opacity = 1;
+                canSmoke = false;
+                setTimeout(() => {
+                    smoke.style.opacity = 0;
+                    canSmoke = true;
+                }, 2000);
+            }
+        }
+    </script>
+</body>
+</html>
