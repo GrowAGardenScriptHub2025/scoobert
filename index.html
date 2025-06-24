@@ -125,183 +125,6 @@
       text-align: center;
     }
 
-    /* Controls section */
-    .controls-container {
-      width: 100%;
-      max-width: 420px;
-      background: white;
-      border-radius: 12px;
-      padding: 25px 30px;
-      box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
-      text-align: center;
-      user-select: none;
-      margin-bottom: 50px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .buttons-row {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      width: 100%;
-    }
-
-    button.play-button,
-    button.loop-button,
-    button.volume-button {
-      flex: 1;
-      background-color: #1db954;
-      color: white;
-      border: none;
-      padding: 10px 0;
-      font-size: 1rem;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      user-select: none;
-      box-shadow: 0 4px 8px rgb(29 185 84 / 0.3);
-    }
-
-    button.play-button:hover,
-    button.loop-button:hover,
-    button.volume-button:hover {
-      background-color: #17a34a;
-      transform: scale(1.05);
-    }
-
-    .volume-button {
-      font-size: 1.3rem;
-      padding: 10px 0;
-    }
-
-    /* Seek bar */
-    #seekBar {
-      width: 100%;
-      -webkit-appearance: none;
-      height: 6px;
-      background: #1db954;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.3s ease;
-    }
-
-    #seekBar:hover {
-      opacity: 1;
-      transform: scaleX(1.05);
-    }
-
-    #seekBar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #17a34a;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      border: 2px solid #1db954;
-      margin-top: -5px;
-    }
-
-    #seekBar::-webkit-slider-thumb:hover {
-      transform: scale(1.3);
-    }
-
-    #seekBar::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: #17a34a;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #1db954;
-      transition: transform 0.3s ease;
-    }
-
-    #seekBar::-moz-range-thumb:hover {
-      transform: scale(1.3);
-    }
-
-    #timestamp {
-      margin-top: 12px;
-      font-weight: 600;
-      color: #555;
-      font-size: 1rem;
-      font-family: 'Courier New', Courier, monospace;
-      letter-spacing: 1.5px;
-    }
-
-    /* Volume dropdown */
-    .volume-dropdown {
-      margin-top: 15px;
-      background: #f1f8f5;
-      border-radius: 15px;
-      padding: 15px 20px;
-      display: none;
-      box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
-      user-select: none;
-      width: 100%;
-      max-width: 350px;
-    }
-
-    .volume-dropdown.active {
-      display: block;
-      animation: popUp 0.3s ease forwards;
-    }
-
-    @keyframes popUp {
-      0% { transform: scale(0.85); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    #volumeSlider {
-      width: 100%;
-      -webkit-appearance: none;
-      height: 6px;
-      background: #1db954;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: opacity 0.2s ease, transform 0.3s ease;
-    }
-
-    #volumeSlider:hover {
-      opacity: 1;
-      transform: scaleX(1.05);
-    }
-
-    #volumeSlider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      background: #17a34a;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #1db954;
-      transition: transform 0.3s ease;
-      margin-top: -5px;
-    }
-
-    #volumeSlider::-webkit-slider-thumb:hover {
-      transform: scale(1.3);
-    }
-
-    #volumeSlider::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      background: #17a34a;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid #1db954;
-      transition: transform 0.3s ease;
-    }
-
-    #volumeSlider::-moz-range-thumb:hover {
-      transform: scale(1.3);
-    }
-
     /* Modal Styles */
     .modal-overlay {
       position: fixed;
@@ -406,22 +229,9 @@
         <div class="nft-label">Scoobert 3</div>
       </div>
     </div>
-
-    <section class="controls-container" aria-label="Music player controls">
-      <div class="buttons-row">
-        <button id="playBtn" class="play-button" aria-pressed="false" onclick="toggleMusic()">Play Music</button>
-        <button id="loopBtn" class="loop-button" aria-pressed="false" onclick="toggleLoop()" title="Toggle loop">🔁 Loop</button>
-        <button id="volBtn" class="volume-button" aria-expanded="false" aria-controls="volumeDropdown" aria-haspopup="true" onclick="toggleVolumeDropdown()" title="Volume control">🔊</button>
-      </div>
-      <input type="range" id="seekBar" class="slider" min="0" max="100" value="0" oninput="setSeek()" aria-label="Seek bar" />
-      <div id="timestamp" aria-live="polite" aria-atomic="true">0:00 / 0:00</div>
-      <div id="volumeDropdown" class="volume-dropdown" role="region" aria-label="Volume control slider">
-        <input type="range" id="volumeSlider" class="volume-slider" min="0" max="1" step="0.1" value="1" oninput="setVolume()" aria-label="Volume slider" />
-      </div>
-    </section>
   </main>
 
-  <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
+  <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH" loop autoplay></audio>
 
   <!-- Modal -->
   <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
@@ -435,12 +245,6 @@
   <script>
     // Elements
     const audio = document.getElementById('nft-audio');
-    const volumeSlider = document.getElementById('volumeSlider');
-    const seekBar = document.getElementById('seekBar');
-    const volumeDropdown = document.getElementById('volumeDropdown');
-    const volumeButton = document.getElementById('volBtn');
-    const playButton = document.getElementById('playBtn');
-    const loopButton = document.getElementById('loopBtn');
     const pageContent = document.getElementById('page-content');
 
     const modalOverlay = document.getElementById('modalOverlay');
@@ -448,106 +252,25 @@
     const downloadBtn = document.getElementById('downloadBtn');
     const modalCloseBtn = modalOverlay.querySelector('.modal-close');
 
-    let isPlaying = false;
-
-    // Music Controls
-    function toggleMusic() {
-      if (isPlaying) {
-        audio.pause();
-        isPlaying = false;
-        playButton.textContent = 'Play Music';
-        playButton.setAttribute('aria-pressed', 'false');
-      } else {
-        audio.play();
-        isPlaying = true;
-        playButton.textContent = 'Pause Music';
-        playButton.setAttribute('aria-pressed', 'true');
-        updateSeekBar();
-      }
-    }
-
-    function toggleLoop() {
-      audio.loop = !audio.loop;
-      loopButton.setAttribute('aria-pressed', audio.loop.toString());
-      alert(`Looping ${audio.loop ? 'enabled' : 'disabled'}`);
-    }
-
-    function toggleVolumeDropdown() {
-      const isActive = volumeDropdown.classList.toggle('active');
-      volumeButton.setAttribute('aria-expanded', isActive.toString());
-    }
-
-    function setVolume() {
-      audio.volume = volumeSlider.value;
-      updateVolumeIcon();
-    }
-
-    function updateVolumeIcon() {
-      const vol = audio.volume;
-      if (vol == 0) volumeButton.textContent = '🔇';
-      else if (vol < 0.5) volumeButton.textContent = '🔉';
-      else volumeButton.textContent = '🔊';
-    }
-
-    function setSeek() {
-      if (!audio.duration) return;
-      const time = (audio.duration * seekBar.value) / 100;
-      audio.currentTime = time;
-    }
-
-    function updateSeekBar() {
-      if (isPlaying) {
-        const current = audio.currentTime;
-        const duration = audio.duration || 1;
-        seekBar.value = (current / duration) * 100;
-        document.getElementById('timestamp').textContent = formatTime(current) + ' / ' + formatTime(duration);
-        requestAnimationFrame(updateSeekBar);
-      }
-    }
-
-    function formatTime(seconds) {
-      const mins = Math.floor(seconds / 60);
-      const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
-      return `${mins}:${secs}`;
-    }
-
-    audio.addEventListener('loadedmetadata', () => {
-      document.getElementById('timestamp').textContent = '0:00 / ' + formatTime(audio.duration);
-      seekBar.value = 0;
-    });
-
-    // Close volume dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-      if (!volumeDropdown.contains(event.target) && event.target !== volumeButton) {
-        volumeDropdown.classList.remove('active');
-        volumeButton.setAttribute('aria-expanded', 'false');
-      }
-    });
+    // Set volume low for chill background music
+    audio.volume = 0.2;
 
     // Live time & timezone & country
     function updateDateTime() {
       const now = new Date();
 
-      // Format time with seconds: HH:MM:SS AM/PM
       const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
       const timeString = now.toLocaleTimeString('en-US', timeOptions);
 
-      // Timezone abbreviation (like GMT+6, or local)
-      // Using Intl API for timeZoneName short form
       const tzOptions = { timeZoneName: 'short' };
       const tzString = now.toLocaleTimeString('en-US', tzOptions).split(' ')[2] || '';
 
-      // Country using Intl API locale info is tricky, fallback to fixed
-      // Or use Intl.DisplayNames if supported
       let country = 'Bangladesh'; // fallback default
       if (typeof Intl.DisplayNames === 'function') {
         try {
           const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
-          // Get country from user's locale - this is not always accurate but okay for demo
           country = regionNames.of(navigator.language.split('-')[1]) || country;
-        } catch(e) {
-          // fallback to Bangladesh
-        }
+        } catch(e) {}
       }
 
       document.getElementById('date-time').textContent = `${timeString} ${tzString} — ${country}`;
@@ -555,9 +278,6 @@
 
     setInterval(updateDateTime, 1000);
     updateDateTime();
-
-    // Initialize volume icon
-    updateVolumeIcon();
 
     /* Modal functionality */
     function openModal(imgSrc, imgAlt, imgName) {
