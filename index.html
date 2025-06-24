@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scoobert NFT</title>
+    <title>Scoobert</title>
     <style>
         body {
             margin: 0;
@@ -11,12 +11,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #121212;
+            background: linear-gradient(135deg, #ffe0f0, #ffccd5);
             font-family: Arial, sans-serif;
         }
         .nft-container {
             text-align: center;
-            color: white;
+            color: #333;
         }
         .nft-image {
             width: 300px;
@@ -37,7 +37,7 @@
             font-size: 2.5em;
             margin: 20px 0;
         }
-        .play-button {
+        .play-button, .hit-button {
             background-color: #1db954;
             color: white;
             border: none;
@@ -46,19 +46,21 @@
             border-radius: 50px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin: 10px;
         }
-        .play-button:hover {
+        .play-button:hover, .hit-button:hover {
             background-color: #17a34a;
         }
     </style>
 </head>
 <body>
     <div class="nft-container">
-        <h1>Scoobert NFT</h1>
-        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert NFT" class="nft-image">
+        <h1>Scoobert</h1>
+        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="nft-image">
         <br>
         <button class="play-button" onclick="toggleMusic()">Play Music</button>
-        <audio id="nft-audio" src="https://screenapp.io/app/#/shared/J0BhZyZM01"></audio>
+        <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
+        <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
     </div>
     <script>
         const audio = document.getElementById('nft-audio');
