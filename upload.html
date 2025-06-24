@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File Uploader - Scoobert</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 40px 20px;
+      max-width: 600px;
+      margin: auto;
+      background: #f8f9fa;
+      color: #222;
+      text-align: center;
+    }
+    h1 {
+      color: #1db954;
+      margin-bottom: 30px;
+    }
+    input[type="file"] {
+      display: block;
+      margin: 20px auto;
+      width: 100%;
+      max-width: 300px;
+    }
+    button {
+      background-color: #1db954;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgb(29 185 84 / 0.5);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #17a34a;
+      transform: scale(1.05);
+    }
+    #message {
+      margin-top: 20px;
+      font-weight: 600;
+      color: #555;
+      word-break: break-all;
+    }
+    #download-link {
+      display: block;
+      margin-top: 30px;
+      font-size: 1.2rem;
+      text-decoration: underline;
+      color: #1db954;
+      cursor: pointer;
+      user-select: none;
+    }
+    #download-link:hover {
+      color: #17a34a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>File Uploader</h1>
+  <input type="file" id="fileInput" />
+  <button id="uploadBtn">Upload & Get Link</button>
+
+  <div id="message"></div>
+  <a id="download-link" href="#" style="display:none;" download>Download Uploaded File</a>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const message = document.getElementById('message');
+    const downloadLink = document.getElementById('download-link');
+
+    // On page load, check if URL has ?file=filename param, then load file from localStorage and enable download
+    function checkForFileParam() {
+      const params = new URLSearchParams(window.location.search);
+      const fileName = params.get('file');
+      if (!fileName) return;
+
+      const storedFilesRaw = localStorage.getItem('uploadedFiles');
+      if (!storedFilesRaw) {
+        message.textContent = 'No uploaded files found in this browser.';
+        return;
+      }
+      const storedFiles = JSON.parse(storedFilesRaw);
+
+      if (!storedFiles[fileName]) {
+        message.textContent = 'File not found in storage.';
+        return;
+      }
+
+      const fileData = storedFiles[fileName];
+      message.textContent = `File "${fileName}" is ready for download.`;
+      downloadLink.href = fileData;
+      downloadLink.download = fileName;
+      downloadLink.style.display = 'inline-block';
+    }
+
+    // Encode file to base64 dataURL
+    function fileToDataURL(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject('Failed to read file');
+        reader.readAsDataURL(file);
+      });
+    }
+
+    uploadBtn.addEventListener('click', async () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file first!');
+        return;
+      }
+
+      try {
+        message.textContent = 'Reading file...';
+        const dataUrl = await fileToDataURL(file);
+
+        let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') || '{}');
+        uploadedFiles[file.name] = dataUrl;
+
+        try {
+          localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+        } catch(e) {
+          alert('Storage limit exceeded. Try smaller file.');
+          return;
+        }
+
+        message.textContent = `File "${file.name}" uploaded and saved locally.`;
+        const sharableLink = window.location.origin + window.location.pathname + '?file=' + encodeURIComponent(file.name);
+        downloadLink.href = dataUrl;
+        downloadLink.download = file.name;
+        downloadLink.style.display = 'inline-block';
+
+        // Show sharable link
+        const linkDisplay = document.createElement('p');
+        linkDisplay.style.wordBreak = 'break-all';
+        linkDisplay.innerHTML = `<strong>Sharable link:</strong> <a href="${sharableLink}" target="_blank" rel="noopener">${sharableLink}</a>`;
+        if (document.getElementById('link-display')) {
+          document.getElementById('link-display').remove();
+        }
+        linkDisplay.id = 'link-display';
+        document.body.appendChild(linkDisplay);
+
+      } catch (error) {
+        message.textContent = 'Error uploading file: ' + error;
+      }
+    });
+
+    window.onload = checkForFileParam;
+  </script>
+
+</body>
+</html>
