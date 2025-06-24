@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why Are You Here?</title>
+  <style>
+    @keyframes shakeScreen {
+      0% { transform: translate(0, 0); }
+      10% { transform: translate(-10px, 10px); }
+      20% { transform: translate(10px, -10px); }
+      30% { transform: translate(-10px, 10px); }
+      40% { transform: translate(10px, -10px); }
+      50% { transform: translate(-10px, 10px); }
+      60% { transform: translate(10px, -10px); }
+      70% { transform: translate(-10px, 10px); }
+      80% { transform: translate(10px, -10px); }
+      90% { transform: translate(-10px, 10px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    @keyframes textPulse {
+      0%, 100% { text-shadow: 0 0 5px #ff0000; color: #ff0000; }
+      50% { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; color: #ff5555; }
+    }
+
+    @keyframes textShake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      20%, 60% { transform: translate(-2px, 2px) rotate(-2deg); }
+      40%, 80% { transform: translate(2px, -2px) rotate(2deg); }
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    #creepy-text {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 3.5rem;
+      color: #ff0000;
+      animation: textPulse 1.5s infinite ease-in-out, textShake 0.2s infinite;
+      user-select: none;
+      text-align: center;
+      max-width: 90vw;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 1.25rem;
+      background: #ff0000;
+      color: black;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 1s ease;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button.fading {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="creepy-text">why are you here?</div>
+  <button id="click-button">I JUST CLICKED THE BUTTON!</button>
+
+  <script>
+    const button = document.getElementById('click-button');
+    const creepyText = document.getElementById('creepy-text');
+    const body = document.body;
+
+    button.addEventListener('click', () => {
+      // Fade button away
+      button.classList.add('fading');
+
+      // After fade out complete (~1s)
+      setTimeout(() => {
+        button.style.display = 'none';
+
+        // Change text content & stop shaking animation on text
+        creepyText.textContent = 'GET OUT!';
+        creepyText.style.animation = 'textPulse 1.5s infinite ease-in-out';
+
+        // Start screen shake animation on body
+        body.style.animation = 'shakeScreen 0.5s ease-in-out 10';
+
+        // After screen shake done (~5s total)
+        setTimeout(() => {
+          // Try to close the tab/window (may not work on all browsers)
+          window.open('', '_self');
+          window.close();
+
+          // Fallback: if window doesn't close, show message
+          setTimeout(() => {
+            document.body.innerHTML = '<h1 style="color:#ff0000; text-align:center; margin-top:40vh; font-family: monospace;">YOU CAN\'T ESCAPE</h1>';
+          }, 100);
+        }, 5000);
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
