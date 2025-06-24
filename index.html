@@ -1,235 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scoobert</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ffe0f0, #ffccd5);
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-        .nft-container {
-            text-align: center;
-            color: #333;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .nft-image {
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
-            transition: transform 0.3s ease;
-        }
-        .nft-image:hover {
-            transform: scale(1.05);
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px #1db954; }
-            50% { box-shadow: 0 0 20px #1db954; }
-            100% { box-shadow: 0 0 5px #1db954; }
-        }
-        h1 {
-            font-size: 2.5em;
-            margin: 0;
-            animation: fadeIn 2s ease-in-out infinite;
-        }
-        @keyframes fadeIn {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        .play-button, .volume-button, .hit-button {
-            background-color: #1db954;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            margin: 10px 5px;
-        }
-        .play-button:hover, .volume-button:hover, .hit-button:hover {
-            transform: scale(1.1);
-            background-color: #17a34a;
-        }
-        .volume-button {
-            font-size: 1.5em;
-            padding: 10px 15px;
-        }
-        .controls {
-            margin-top: 20px;
-            position: relative;
-        }
-        .slider {
-            width: 200px;
-            margin: 10px auto;
-            appearance: none;
-            height: 5px;
-            background: #1db954;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.2s, transform 0.3s ease;
-            animation: slideIn 1s ease-out;
-        }
-        .slider:hover {
-            opacity: 1;
-            transform: scaleX(1.05);
-        }
-        @keyframes slideIn {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(0); }
-        }
-        .slider::-webkit-slider-thumb,
-        .volume-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .slider::-webkit-slider-thumb:hover,
-        .volume-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-        .slider::-moz-range-thumb,
-        .volume-slider::-moz-range-thumb {
-            width: 15px;
-            height: 15px;
-            background: #1db954;
-            cursor: pointer;
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-        .slider::-moz-range-thumb:hover,
-        .volume-slider::-moz-range-thumb:hover {
-            transform: scale(1.2);
-        }
-        .volume-dropdown {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            border: 2px solid #1db954;
-            border-radius: 10px;
-            padding: 15px;
-            width: 200px;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
-            animation: popUp 0.3s ease-out;
-        }
-        .volume-dropdown.active {
-            display: block;
-        }
-        @keyframes popUp {
-            0% { transform: translateX(-50%) scale(0.8); opacity: 0; }
-            100% { transform: translateX(-50%) scale(1); opacity: 1; }
-        }
-        .volume-slider {
-            width: 100%;
-            appearance: none;
-            height: 5px;
-            background: #1db954;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.2s, transform 0.3s ease;
-        }
-        .volume-slider:hover {
-            opacity: 1;
-            transform: scaleX(1.05);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scoobert</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffe0f0, #ffccd5);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .nft-container {
+      text-align: center;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .nft-image {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+      animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .nft-image:hover {
+      transform: scale(1.05);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px #1db954; }
+      50% { box-shadow: 0 0 20px #1db954; }
+      100% { box-shadow: 0 0 5px #1db954; }
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin: 0;
+      animation: fadeIn 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeIn {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .play-button, .volume-button, .hit-button {
+      background-color: #1db954;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      margin: 10px 5px;
+    }
+
+    .play-button:hover, .volume-button:hover, .hit-button:hover {
+      transform: scale(1.1);
+      background-color: #17a34a;
+    }
+
+    .volume-button {
+      font-size: 1.5em;
+      padding: 10px 15px;
+    }
+
+    .controls {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .slider {
+      width: 200px;
+      margin: 10px auto;
+      appearance: none;
+      height: 5px;
+      background: #1db954;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s, transform 0.3s ease;
+      animation: slideIn 1s ease-out;
+    }
+
+    .slider:hover {
+      opacity: 1;
+      transform: scaleX(1.05);
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(0); }
+    }
+
+    .slider::-webkit-slider-thumb,
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background: #1db954;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover,
+    .volume-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .slider::-moz-range-thumb,
+    .volume-slider::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      background: #1db954;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    .slider::-moz-range-thumb:hover,
+    .volume-slider::-moz-range-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .volume-dropdown {
+      display: none;
+      background-color: #fff;
+      border: 2px solid #1db954;
+      border-radius: 10px;
+      padding: 15px;
+      width: 200px;
+      margin: 10px auto 0;
+      animation: popUp 0.3s ease-out;
+    }
+
+    .volume-dropdown.active {
+      display: block;
+    }
+
+    @keyframes popUp {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .volume-slider {
+      width: 100%;
+      appearance: none;
+      height: 5px;
+      background: #1db954;
+      outline: none;
+      opacity: 0.7;
+      transition: opacity 0.2s, transform 0.3s ease;
+    }
+
+    .volume-slider:hover {
+      opacity: 1;
+      transform: scaleX(1.05);
+    }
+  </style>
 </head>
 <body>
-    <div class="nft-container">
-        <div class="header">
-            <h1>Scoobert</h1>
-            <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
-        </div>
-        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="nft-image">
-        <div>
-            <button class="play-button" onclick="toggleMusic()">Play Music</button>
-            <button class="volume-button" onclick="toggleVolumeDropdown()">📢</button>
-        </div>
-        <div class="controls">
-            <input type="range" min="0" max="100" value="0" class="slider" id="seekBar" oninput="setSeek()">
-            <div class="volume-dropdown" id="volumeDropdown">
-                <input type="range" min="0" max="1" step="0.1" value="1" class="volume-slider" id="volumeSlider" oninput="setVolume()">
-            </div>
-        </div>
-        <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
+  <div class="nft-container">
+    <div class="header">
+      <h1>Scoobert</h1>
+      <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
     </div>
 
-    <script>
-        const audio = document.getElementById('nft-audio');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const seekBar = document.getElementById('seekBar');
-        const volumeDropdown = document.getElementById('volumeDropdown');
-        let isPlaying = false;
+    <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert" class="nft-image" />
 
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                document.querySelector('.play-button').textContent = 'Play Music';
-            } else {
-                audio.play();
-                isPlaying = true;
-                document.querySelector('.play-button').textContent = 'Pause Music';
-                updateSeekBar();
-            }
-        }
+    <div>
+      <button class="play-button" onclick="toggleMusic()">Play Music</button>
+      <button class="volume-button" onclick="toggleVolumeDropdown()">📢</button>
+    </div>
 
-        function toggleVolumeDropdown() {
-            volumeDropdown.classList.toggle('active');
-        }
+    <div class="controls">
+      <input type="range" min="0" max="100" value="0" class="slider" id="seekBar" oninput="setSeek()" />
+    </div>
 
-        function setVolume() {
-            audio.volume = volumeSlider.value;
-        }
+    <div class="volume-dropdown" id="volumeDropdown">
+      <input type="range" min="0" max="1" step="0.1" value="1" class="volume-slider" id="volumeSlider" oninput="setVolume()" />
+    </div>
 
-        function setSeek() {
-            const time = (audio.duration * seekBar.value) / 100;
-            audio.currentTime = time;
-        }
+    <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH"></audio>
+  </div>
 
-        function updateSeekBar() {
-            if (isPlaying) {
-                const progress = (audio.currentTime / audio.duration) * 100;
-                seekBar.value = progress;
-                requestAnimationFrame(updateSeekBar);
-            }
-        }
+  <script>
+    const audio = document.getElementById('nft-audio');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const seekBar = document.getElementById('seekBar');
+    const volumeDropdown = document.getElementById('volumeDropdown');
+    let isPlaying = false;
 
-        audio.addEventListener('loadedmetadata', () => {
-            seekBar.max = 100;
-        });
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        document.querySelector('.play-button').textContent = 'Play Music';
+      } else {
+        audio.play();
+        isPlaying = true;
+        document.querySelector('.play-button').textContent = 'Pause Music';
+        updateSeekBar();
+      }
+    }
 
-        document.addEventListener('click', (event) => {
-            if (!volumeDropdown.contains(event.target) && event.target.className !== 'volume-button') {
-                volumeDropdown.classList.remove('active');
-            }
-        });
-    </script>
+    function toggleVolumeDropdown() {
+      volumeDropdown.classList.toggle('active');
+    }
+
+    function setVolume() {
+      audio.volume = volumeSlider.value;
+    }
+
+    function setSeek() {
+      const time = (audio.duration * seekBar.value) / 100;
+      audio.currentTime = time;
+    }
+
+    function updateSeekBar() {
+      if (isPlaying) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        seekBar.value = progress;
+        requestAnimationFrame(updateSeekBar);
+      }
+    }
+
+    audio.addEventListener('loadedmetadata', () => {
+      seekBar.max = 100;
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!volumeDropdown.contains(event.target) && !event.target.classList.contains('volume-button')) {
+        volumeDropdown.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>
