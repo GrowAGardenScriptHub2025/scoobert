@@ -47,64 +47,61 @@
 
     .header {
       margin-bottom: 20px;
+      position: relative;
+    }
+
+    .deal-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px 0 10px 0;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .deal-box span {
+      display: block;
+      font-size: 2em;
+    }
+
+    .nft-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 20px 0;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .nft-item {
+      position: relative;
+      text-align: center;
     }
 
     .nft-image {
-      width: 300px;
+      width: 100%;
       height: auto;
       border-radius: 10px;
-      animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
       transition: transform 0.3s ease;
-      cursor: pointer;
     }
 
     .nft-image:hover {
       transform: scale(1.05);
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-    @keyframes glow {
-      0% { box-shadow: 0 0 5px #1db954; }
-      50% { box-shadow: 0 0 20px #1db954; }
-      100% { box-shadow: 0 0 5px #1db954; }
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin: 0;
-      animation: fadeIn 2s ease-in-out infinite;
-      cursor: default;
-    }
-
-    @keyframes fadeIn {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    .play-button, .volume-button, .loop-button {
-      background-color: #1db954;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      margin: 10px 5px;
-    }
-
-    .play-button:hover, .volume-button:hover, .loop-button:hover {
-      transform: scale(1.1);
-      background-color: #17a34a;
-    }
-
-    .volume-button {
-      font-size: 1.5em;
-      padding: 10px 15px;
+    .nft-label {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 1.2em;
     }
 
     .controls {
@@ -120,17 +117,11 @@
       outline: none;
       opacity: 0.7;
       transition: opacity 0.2s, transform 0.3s ease;
-      animation: slideIn 1s ease-out;
     }
 
     .slider:hover {
       opacity: 1;
       transform: scaleX(1.05);
-    }
-
-    @keyframes slideIn {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(0); }
     }
 
     .slider::-webkit-slider-thumb,
@@ -206,20 +197,26 @@
       margin-top: 5px;
     }
 
-    .carousel {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      padding: 20px 0;
-      max-width: 1000px;
-      margin: 0 auto;
+    .play-button, .volume-button, .loop-button {
+      background-color: #1db954;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      margin: 10px 5px;
     }
 
-    .carousel img {
-      width: 250px;
-      height: auto;
-      border-radius: 10px;
-      cursor: pointer;
+    .play-button:hover, .volume-button:hover, .loop-button:hover {
+      transform: scale(1.1);
+      background-color: #17a34a;
+    }
+
+    .volume-button {
+      font-size: 1.5em;
+      padding: 10px 15px;
     }
 
     #date-time {
@@ -240,13 +237,25 @@
 
   <div class="nft-container">
     <div class="header">
+      <div class="deal-box">
+        SPLAYD<br><span>Deal of the Day</span><br>35% OFF DISCOUNT
+      </div>
       <h1>Scoobert Collection</h1>
     </div>
 
-    <div class="carousel">
-      <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
-      <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" />
-      <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
+    <div class="nft-grid">
+      <div class="nft-item">
+        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
+        <div class="nft-label">Scoobert 1</div>
+      </div>
+      <div class="nft-item">
+        <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" />
+        <div class="nft-label">Scoobert 2</div>
+      </div>
+      <div class="nft-item">
+        <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
+        <div class="nft-label">Scoobert 3</div>
+      </div>
     </div>
 
     <div>
