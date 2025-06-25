@@ -186,7 +186,7 @@
     <div id="date-time">Loading time...</div>
     <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
     <button class="hit-button" onclick="window.location.href='upload.html'">File Uploader</button>
-    <button class="hit-button" onclick="window.location.href='game.html'">PLAY</button> <!-- ✅ Added -->
+    <button class="hit-button" onclick="window.location.href='game.html'">PLAY</button>
   </div>
 
   <header>Scoobert Collection</header>
@@ -228,8 +228,9 @@
 
     function updateDateTime() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      document.getElementById('date-time').textContent = time;
+      const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const timeString = now.toLocaleTimeString('en-US', { timeZone: userTimeZone, hour12: false });
+      document.getElementById('date-time').textContent = `${timeString} (${userTimeZone})`;
     }
 
     setInterval(updateDateTime, 1000);
