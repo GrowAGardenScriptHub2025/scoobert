@@ -71,9 +71,23 @@
       font-size: 1.1rem;
       border-radius: 30px;
       cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
     }
-    .roll-button:hover {
+    .roll-button:hover:enabled {
       background: #17a34a;
+    }
+    .roll-button:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+    .cooldown-timer {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 20px;
+      height: 1.2em;
+      user-select: none;
     }
     .inventory {
       background: #222;
@@ -125,7 +139,8 @@
     <div class="highlight"></div>
   </div>
 
-  <button class="roll-button" onclick="startRoll()">ROLL</button>
+  <button class="roll-button" id="rollBtn" onclick="startRoll()">ROLL</button>
+  <div class="cooldown-timer" id="cooldownTimer"></div>
 
   <div class="inventory">
     <h2>Your Inventory:</h2>
@@ -145,6 +160,11 @@
     const roller = document.getElementById("roller");
     const inventory = [];
     const popup = document.getElementById("popup");
+    const rollBtn = document.getElementById("rollBtn");
+    const cooldownTimer = document.getElementById("cooldownTimer");
+
+    let cooldown = 0;
+    let cooldownInterval = null;
 
     function buildRollSequence() {
       roller.innerHTML = "";
@@ -161,13 +181,29 @@
         pool.push(item);
         roller.appendChild(item);
       }
-      // Force reflow
-      void roller.offsetWidth;
+      void roller.offsetWidth; // Force reflow
       return pool;
     }
 
     function startRoll() {
+      if (cooldown > 0) return; // Prevent rolling if cooldown active
+
+      cooldown = 10; // 10 seconds cooldown
+      rollBtn.disabled = true;
+      updateCooldownDisplay();
+
+      cooldownInterval = setInterval(() => {
+        cooldown--;
+        updateCooldownDisplay();
+        if (cooldown <= 0) {
+          clearInterval(cooldownInterval);
+          cooldownTimer.textContent = "";
+          rollBtn.disabled = false;
+        }
+      }, 1000);
+
       const pool = buildRollSequence();
+
       setTimeout(() => {
         roller.style.transition = "transform 3s cubic-bezier(0.25, 1, 0.5, 1)";
         const end = -((pool.length - 4) * 160);
@@ -182,6 +218,10 @@
           showPopup(name);
         }, 3100);
       }, 50);
+    }
+
+    function updateCooldownDisplay() {
+      cooldownTimer.textContent = `Cooldown: ${cooldown} second${cooldown !== 1 ? 's' : ''}`;
     }
 
     function updateInventory() {
