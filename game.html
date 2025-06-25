@@ -32,7 +32,6 @@
     .roller {
       display: flex;
       width: max-content;
-      animation: none;
     }
     .roller-item {
       min-width: 150px;
@@ -149,6 +148,8 @@
 
     function buildRollSequence() {
       roller.innerHTML = "";
+      roller.style.transition = "none";
+      roller.style.transform = "translateX(0)";
       const pool = [];
       for (let i = 0; i < 50; i++) {
         const char = characters[Math.floor(Math.random() * characters.length)];
@@ -160,23 +161,27 @@
         pool.push(item);
         roller.appendChild(item);
       }
+      // Force reflow
+      void roller.offsetWidth;
       return pool;
     }
 
     function startRoll() {
       const pool = buildRollSequence();
-      roller.style.transition = "transform 3s cubic-bezier(0.25, 1, 0.5, 1)";
-      const end = -((pool.length - 4) * 160);
-      roller.style.transform = `translateX(${end}px)`;
-
       setTimeout(() => {
-        const result = pool[pool.length - 4];
-        const name = result.dataset.name;
-        const img = result.dataset.img;
-        inventory.push({ name, img });
-        updateInventory();
-        showPopup(name);
-      }, 3100);
+        roller.style.transition = "transform 3s cubic-bezier(0.25, 1, 0.5, 1)";
+        const end = -((pool.length - 4) * 160);
+        roller.style.transform = `translateX(${end}px)`;
+
+        setTimeout(() => {
+          const result = pool[pool.length - 4];
+          const name = result.dataset.name;
+          const img = result.dataset.img;
+          inventory.push({ name, img });
+          updateInventory();
+          showPopup(name);
+        }, 3100);
+      }, 50);
     }
 
     function updateInventory() {
