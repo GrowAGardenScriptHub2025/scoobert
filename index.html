@@ -22,7 +22,6 @@
       overflow-x: hidden;
     }
 
-    /* Blur background when modal active (on page-content) */
     #page-content.blurred {
       filter: blur(6px);
       pointer-events: none;
@@ -30,7 +29,6 @@
       transition: filter 0.3s ease;
     }
 
-    /* Header Banner */
     header {
       width: 100%;
       max-width: 1200px;
@@ -45,7 +43,6 @@
       margin-bottom: 40px;
     }
 
-    /* Date & Take a Hit & FileUploader buttons container */
     .top-bar {
       width: 100%;
       max-width: 1200px;
@@ -83,7 +80,6 @@
       transform: scale(1.05);
     }
 
-    /* NFT Grid */
     .nft-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -127,7 +123,6 @@
       text-align: center;
     }
 
-    /* Modal Styles */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -210,14 +205,14 @@
 </head>
 <body>
   <div class="top-bar" id="page-content">
-    <div id="date-time" aria-live="polite" aria-atomic="true" role="region">Loading time...</div>
-    <button class="hit-button" onclick="window.location.href='smoke.html'" aria-label="Take A Hit">Take A Hit</button>
-    <button class="hit-button" onclick="window.location.href='upload.html'" aria-label="File Uploader">File Uploader</button>
+    <div id="date-time">Loading time...</div>
+    <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
+    <button class="hit-button" onclick="window.location.href='upload.html'">File Uploader</button>
   </div>
 
   <header>Scoobert Collection</header>
 
-  <main id="page-content" aria-label="Scoobert NFTs gallery" tabindex="0">
+  <main id="page-content">
     <div class="nft-grid">
       <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/IL5RtOF.jpeg" data-name="Scoobert 1">
         <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
@@ -231,58 +226,52 @@
         <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
         <div class="nft-label">Scoobert 3</div>
       </div>
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/COJd7LH.jpeg" data-name="GeekyKiwi">
+        <img src="https://i.imgur.com/COJd7LH.jpeg" alt="GeekyKiwi" class="nft-image" />
+        <div class="nft-label">GeekyKiwi</div>
+      </div>
     </div>
   </main>
 
   <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH" loop autoplay></audio>
 
-  <!-- Modal -->
-  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div id="modalOverlay" class="modal-overlay">
     <div class="modal-content">
-      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <button class="modal-close">&times;</button>
       <img id="modalImage" src="" alt="Scoobert NFT" class="modal-image" />
       <a id="downloadBtn" href="#" class="download-button" download>Download</a>
     </div>
   </div>
 
   <script>
-    // Elements
     const audio = document.getElementById('nft-audio');
     const pageContent = document.getElementById('page-content');
-
     const modalOverlay = document.getElementById('modalOverlay');
     const modalImage = document.getElementById('modalImage');
     const downloadBtn = document.getElementById('downloadBtn');
     const modalCloseBtn = modalOverlay.querySelector('.modal-close');
 
-    // Set volume low for chill background music
     audio.volume = 0.2;
 
-    // Live time & timezone & country
     function updateDateTime() {
       const now = new Date();
-
       const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
       const timeString = now.toLocaleTimeString('en-US', timeOptions);
-
       const tzOptions = { timeZoneName: 'short' };
       const tzString = now.toLocaleTimeString('en-US', tzOptions).split(' ')[2] || '';
-
-      let country = 'Bangladesh'; // fallback default
+      let country = 'Bangladesh';
       if (typeof Intl.DisplayNames === 'function') {
         try {
           const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
           country = regionNames.of(navigator.language.split('-')[1]) || country;
         } catch(e) {}
       }
-
       document.getElementById('date-time').textContent = `${timeString} ${tzString} — ${country}`;
     }
 
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    /* Modal functionality */
     function openModal(imgSrc, imgAlt, imgName) {
       modalImage.src = imgSrc;
       modalImage.alt = imgAlt || imgName || "Scoobert NFT";
@@ -299,7 +288,6 @@
       modalImage.src = '';
     }
 
-    // Open modal when clicking or keyboard on NFT items
     document.querySelectorAll('.nft-item').forEach(item => {
       item.addEventListener('click', () => {
         const imgSrc = item.getAttribute('data-img');
@@ -316,14 +304,12 @@
       });
     });
 
-    // Close modal on overlay click or close button
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeModal();
     });
 
     modalCloseBtn.addEventListener('click', closeModal);
 
-    // Close modal on ESC key
     document.addEventListener('keydown', (e) => {
       if (e.key === "Escape" && modalOverlay.classList.contains('active')) {
         closeModal();
