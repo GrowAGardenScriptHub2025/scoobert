@@ -114,61 +114,6 @@
       object-fit: cover;
       border-radius: 10px;
       margin-bottom: 12px;
-      position: relative;
-    }
-
-    /* Fire glow effect container */
-    .fire-glow {
-      position: relative;
-      display: inline-block;
-    }
-
-    /* Fire glow effect on sides */
-    .fire-glow::before,
-    .fire-glow::after {
-      content: "";
-      position: absolute;
-      top: 10%;
-      width: 15px;
-      height: 80%;
-      background: linear-gradient(180deg, #ff6a00, #ee0979);
-      filter: blur(10px);
-      animation: flicker 1.5s infinite alternate ease-in-out;
-      opacity: 0.8;
-      border-radius: 10px;
-      pointer-events: none;
-      z-index: 1;
-    }
-    .fire-glow::before {
-      left: -20px;
-      box-shadow:
-        0 0 20px 5px #ff6a00,
-        0 0 40px 10px #ee0979;
-    }
-    .fire-glow::after {
-      right: -20px;
-      box-shadow:
-        0 0 20px 5px #ff6a00,
-        0 0 40px 10px #ee0979;
-      animation-delay: 0.7s;
-    }
-
-    @keyframes flicker {
-      0% {
-        opacity: 0.7;
-        transform: translateY(0);
-        filter: blur(10px) brightness(1);
-      }
-      50% {
-        opacity: 1;
-        transform: translateY(3px);
-        filter: blur(15px) brightness(1.2);
-      }
-      100% {
-        opacity: 0.7;
-        transform: translateY(0);
-        filter: blur(10px) brightness(1);
-      }
     }
 
     .nft-label {
@@ -285,21 +230,14 @@
         <img src="https://i.imgur.com/COJd7LH.jpeg" alt="GeekyKiwi" class="nft-image" />
         <div class="nft-label">GeekyKiwi</div>
       </div>
-      <!-- New rare Zaheen Scoobert with fire glow -->
-      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/r4NEIrv.jpeg" data-name="Zaheen Scoobert">
-        <div class="fire-glow">
-          <img src="https://i.imgur.com/r4NEIrv.jpeg" alt="Zaheen Scoobert" class="nft-image" />
-        </div>
-        <div class="nft-label">Zaheen Scoobert</div>
-      </div>
     </div>
   </main>
 
   <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH" loop autoplay></audio>
 
-  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <div id="modalOverlay" class="modal-overlay">
     <div class="modal-content">
-      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <button class="modal-close">&times;</button>
       <img id="modalImage" src="" alt="Scoobert NFT" class="modal-image" />
       <a id="downloadBtn" href="#" class="download-button" download>Download</a>
     </div>
@@ -328,7 +266,7 @@
           country = regionNames.of(navigator.language.split('-')[1]) || country;
         } catch(e) {}
       }
-      document.getElementById('date-time').textContent = `${timeString} ${tzString} — ${country}`;
+      document.getElementById('date-time').textContent = ${timeString} ${tzString} — ${country};
     }
 
     setInterval(updateDateTime, 1000);
