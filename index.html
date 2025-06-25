@@ -229,8 +229,9 @@
     function updateDateTime() {
       const now = new Date();
       const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      // just show time, no timezone label
       const timeString = now.toLocaleTimeString('en-US', { timeZone: userTimeZone, hour12: false });
-      document.getElementById('date-time').textContent = `${timeString} (${userTimeZone})`;
+      document.getElementById('date-time').textContent = timeString;
     }
 
     setInterval(updateDateTime, 1000);
