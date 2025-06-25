@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Scoobert Collection</title>
   <style>
-    * { box-sizing: border-box; }
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       min-height: 100vh;
@@ -18,12 +21,14 @@
       padding: 40px 20px;
       overflow-x: hidden;
     }
+
     #page-content.blurred {
       filter: blur(6px);
       pointer-events: none;
       user-select: none;
       transition: filter 0.3s ease;
     }
+
     header {
       width: 100%;
       max-width: 1200px;
@@ -37,6 +42,7 @@
       user-select: none;
       margin-bottom: 40px;
     }
+
     .top-bar {
       width: 100%;
       max-width: 1200px;
@@ -46,6 +52,7 @@
       align-items: center;
       margin-bottom: 20px;
     }
+
     #date-time {
       font-family: 'Courier New', Courier, monospace;
       font-size: 1.3rem;
@@ -54,6 +61,7 @@
       letter-spacing: 2px;
       flex-grow: 1;
     }
+
     .hit-button {
       background-color: #1db954;
       color: white;
@@ -66,10 +74,12 @@
       box-shadow: 0 4px 8px rgb(29 185 84 / 0.3);
       user-select: none;
     }
+
     .hit-button:hover {
       background-color: #17a34a;
       transform: scale(1.05);
     }
+
     .nft-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -78,6 +88,7 @@
       max-width: 1200px;
       margin-bottom: 40px;
     }
+
     .nft-item {
       background: white;
       border-radius: 12px;
@@ -91,23 +102,82 @@
       padding: 15px;
       user-select: none;
     }
+
     .nft-item:hover {
       transform: translateY(-8px);
       box-shadow: 0 16px 32px rgb(0 0 0 / 0.12);
     }
+
     .nft-image {
       width: 100%;
       height: 220px;
       object-fit: cover;
       border-radius: 10px;
       margin-bottom: 12px;
+      position: relative;
     }
+
+    /* Fire glow effect container */
+    .fire-glow {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* Fire glow effect on sides */
+    .fire-glow::before,
+    .fire-glow::after {
+      content: "";
+      position: absolute;
+      top: 10%;
+      width: 15px;
+      height: 80%;
+      background: linear-gradient(180deg, #ff6a00, #ee0979);
+      filter: blur(10px);
+      animation: flicker 1.5s infinite alternate ease-in-out;
+      opacity: 0.8;
+      border-radius: 10px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .fire-glow::before {
+      left: -20px;
+      box-shadow:
+        0 0 20px 5px #ff6a00,
+        0 0 40px 10px #ee0979;
+    }
+    .fire-glow::after {
+      right: -20px;
+      box-shadow:
+        0 0 20px 5px #ff6a00,
+        0 0 40px 10px #ee0979;
+      animation-delay: 0.7s;
+    }
+
+    @keyframes flicker {
+      0% {
+        opacity: 0.7;
+        transform: translateY(0);
+        filter: blur(10px) brightness(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(3px);
+        filter: blur(15px) brightness(1.2);
+      }
+      100% {
+        opacity: 0.7;
+        transform: translateY(0);
+        filter: blur(10px) brightness(1);
+      }
+    }
+
     .nft-label {
       font-weight: 600;
       font-size: 1.1rem;
       color: #333;
       text-align: center;
     }
+
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -120,10 +190,12 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
+
     .modal-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
+
     .modal-content {
       background: white;
       border-radius: 15px;
@@ -138,6 +210,7 @@
       user-select: none;
       overflow: hidden;
     }
+
     .modal-image {
       max-width: 100%;
       max-height: 70vh;
@@ -147,6 +220,7 @@
       user-select: none;
       pointer-events: none;
     }
+
     .modal-close {
       position: absolute;
       top: 10px;
@@ -158,9 +232,11 @@
       user-select: none;
       transition: color 0.3s ease;
     }
+
     .modal-close:hover {
       color: #1db954;
     }
+
     .download-button {
       background-color: #1db954;
       color: white;
@@ -175,6 +251,7 @@
       text-decoration: none;
       display: inline-block;
     }
+
     .download-button:hover {
       background-color: #17a34a;
       transform: scale(1.05);
@@ -186,73 +263,120 @@
     <div id="date-time">Loading time...</div>
     <button class="hit-button" onclick="window.location.href='smoke.html'">Take A Hit</button>
     <button class="hit-button" onclick="window.location.href='upload.html'">File Uploader</button>
-    <button class="hit-button" onclick="window.location.href='game.html'">PLAY</button> <!-- ✅ Added -->
   </div>
 
   <header>Scoobert Collection</header>
 
   <main id="page-content">
     <div class="nft-grid">
-      <div class="nft-item" data-img="https://i.imgur.com/IL5RtOF.jpeg" data-name="Scoobert 1">
-        <img src="https://i.imgur.com/IL5RtOF.jpeg" class="nft-image" />
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/IL5RtOF.jpeg" data-name="Scoobert 1">
+        <img src="https://i.imgur.com/IL5RtOF.jpeg" alt="Scoobert 1" class="nft-image" />
         <div class="nft-label">Scoobert 1</div>
       </div>
-      <div class="nft-item" data-img="https://i.imgur.com/E457iTG.png" data-name="Scoobert 2">
-        <img src="https://i.imgur.com/E457iTG.png" class="nft-image" />
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/E457iTG.png" data-name="Scoobert 2">
+        <img src="https://i.imgur.com/E457iTG.png" alt="Scoobert 2" class="nft-image" />
         <div class="nft-label">Scoobert 2</div>
       </div>
-      <div class="nft-item" data-img="https://i.imgur.com/3vtBSYw.jpeg" data-name="Scoobert 3">
-        <img src="https://i.imgur.com/3vtBSYw.jpeg" class="nft-image" />
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/3vtBSYw.jpeg" data-name="Scoobert 3">
+        <img src="https://i.imgur.com/3vtBSYw.jpeg" alt="Scoobert 3" class="nft-image" />
         <div class="nft-label">Scoobert 3</div>
       </div>
-      <div class="nft-item" data-img="https://i.imgur.com/COJd7LH.jpeg" data-name="GeekyKiwi">
-        <img src="https://i.imgur.com/COJd7LH.jpeg" class="nft-image" />
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/COJd7LH.jpeg" data-name="GeekyKiwi">
+        <img src="https://i.imgur.com/COJd7LH.jpeg" alt="GeekyKiwi" class="nft-image" />
         <div class="nft-label">GeekyKiwi</div>
+      </div>
+      <!-- New rare Zaheen Scoobert with fire glow -->
+      <div class="nft-item" tabindex="0" data-img="https://i.imgur.com/r4NEIrv.jpeg" data-name="Zaheen Scoobert">
+        <div class="fire-glow">
+          <img src="https://i.imgur.com/r4NEIrv.jpeg" alt="Zaheen Scoobert" class="nft-image" />
+        </div>
+        <div class="nft-label">Zaheen Scoobert</div>
       </div>
     </div>
   </main>
 
   <audio id="nft-audio" src="https://audio.jukehost.co.uk/6LPZ6NLDIASGPPnm53KsVP3XYk0GppkH" loop autoplay></audio>
 
-  <div id="modalOverlay" class="modal-overlay">
+  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
     <div class="modal-content">
-      <button class="modal-close">&times;</button>
-      <img id="modalImage" src="" class="modal-image" />
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <img id="modalImage" src="" alt="Scoobert NFT" class="modal-image" />
       <a id="downloadBtn" href="#" class="download-button" download>Download</a>
     </div>
   </div>
 
   <script>
     const audio = document.getElementById('nft-audio');
+    const pageContent = document.getElementById('page-content');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalImage = document.getElementById('modalImage');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const modalCloseBtn = modalOverlay.querySelector('.modal-close');
+
     audio.volume = 0.2;
 
     function updateDateTime() {
       const now = new Date();
-      const time = now.toLocaleTimeString();
-      document.getElementById('date-time').textContent = time;
+      const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+      const timeString = now.toLocaleTimeString('en-US', timeOptions);
+      const tzOptions = { timeZoneName: 'short' };
+      const tzString = now.toLocaleTimeString('en-US', tzOptions).split(' ')[2] || '';
+      let country = 'Bangladesh';
+      if (typeof Intl.DisplayNames === 'function') {
+        try {
+          const regionNames = new Intl.DisplayNames(['en'], {type: 'region'});
+          country = regionNames.of(navigator.language.split('-')[1]) || country;
+        } catch(e) {}
+      }
+      document.getElementById('date-time').textContent = `${timeString} ${tzString} — ${country}`;
     }
 
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    function openModal(src, name) {
-      document.getElementById('modalImage').src = src;
-      document.getElementById('downloadBtn').href = src;
-      document.getElementById('downloadBtn').setAttribute('download', name);
-      document.getElementById('modalOverlay').classList.add('active');
-      document.getElementById('page-content').classList.add('blurred');
+    function openModal(imgSrc, imgAlt, imgName) {
+      modalImage.src = imgSrc;
+      modalImage.alt = imgAlt || imgName || "Scoobert NFT";
+      downloadBtn.href = imgSrc;
+      downloadBtn.setAttribute('download', imgName || 'Scoobert');
+      modalOverlay.classList.add('active');
+      pageContent.classList.add('blurred');
+      modalOverlay.focus();
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      pageContent.classList.remove('blurred');
+      modalImage.src = '';
     }
 
     document.querySelectorAll('.nft-item').forEach(item => {
       item.addEventListener('click', () => {
-        openModal(item.dataset.img, item.dataset.name);
+        const imgSrc = item.getAttribute('data-img');
+        const imgName = item.getAttribute('data-name');
+        openModal(imgSrc, imgName, imgName);
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const imgSrc = item.getAttribute('data-img');
+          const imgName = item.getAttribute('data-name');
+          openModal(imgSrc, imgName, imgName);
+        }
       });
     });
 
-    document.querySelector('.modal-close').onclick = () => {
-      document.getElementById('modalOverlay').classList.remove('active');
-      document.getElementById('page-content').classList.remove('blurred');
-    };
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    modalCloseBtn.addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && modalOverlay.classList.contains('active')) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
