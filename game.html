@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roll for Scooberts</title>
+  <style>
+    body {
+      background: #111;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #1db954;
+      margin-bottom: 10px;
+    }
+    .roll-button {
+      background: #1db954;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+    .roll-button:hover {
+      background: #17a34a;
+    }
+    .roll-result {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+    .inventory {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 100%;
+    }
+    .inventory h2 {
+      margin-top: 0;
+    }
+    .inventory-item {
+      background: #333;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 6px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 Roll for Scooberts</h1>
+  <div class="roll-result" id="rollResult">Click ROLL to spin!</div>
+  <button class="roll-button" onclick="roll()">ROLL</button>
+
+  <div class="inventory">
+    <h2>Your Inventory:</h2>
+    <div id="inventoryList"></div>
+  </div>
+
+  <script>
+    const characters = [
+      { name: "Scoobert 1", chance: 0.35 },
+      { name: "Scoobert 2", chance: 0.30 },
+      { name: "Scoobert 3", chance: 0.25 },
+      { name: "GeekyKiwi", chance: 0.10 }
+    ];
+
+    const inventory = [];
+
+    function roll() {
+      const rand = Math.random();
+      let sum = 0;
+      let result = "Nothing";
+
+      for (const char of characters) {
+        sum += char.chance;
+        if (rand <= sum) {
+          result = char.name;
+          break;
+        }
+      }
+
+      inventory.push(result);
+      document.getElementById("rollResult").textContent = `You rolled: ${result}`;
+      updateInventory();
+    }
+
+    function updateInventory() {
+      const list = document.getElementById("inventoryList");
+      list.innerHTML = "";
+      inventory.forEach((item, i) => {
+        const div = document.createElement("div");
+        div.className = "inventory-item";
+        div.textContent = `#${i + 1}: ${item}`;
+        list.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
